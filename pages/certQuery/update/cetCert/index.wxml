@@ -1,0 +1,129 @@
+<!--pages/setting/certificate/CET/create/index.wxml-->
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">证书录入</view>
+</cu-custom>
+
+<view class="bg-white padding">
+	<view class="cu-steps">
+
+		<block wx:for="{{stepList.names}}" wx:key="item">
+			<view class="cu-item {{index>stepList.current?'':'text-green'}}">
+				<text class="num" data-index="{{index + 1}}"></text> {{item}}
+			</view>
+		</block>
+	</view>
+</view>
+
+<swiper style="height:calc(100vh - 160rpx - 182rpx)" easing-function="easeInOutCubic" current="{{stepList.current}}"
+	bindanimationfinish="changeByHand">
+	<!-- 111基本信息 -->
+	<swiper-item>
+
+		<scroll-view scroll-y style="height:calc(100% - 160rpx)">
+
+
+			<view class="cu-bar bg-white solid-bottom">
+				<view class="action">
+					<text class="cuIcon-title text-red"></text>
+					<text>基本信息</text><text class="text-sm text-red">(必填)</text>
+				</view>
+			</view>
+
+			<view class="cu-form-group">
+				<view class="title">证书类型</view>
+				<picker value="{{certType.current}}" range="{{certType.names}}" bindchange="typeChange">
+					<view style="text-align:left;line-height:unset" class="picker text-green">{{certType.names[certType.current]}}
+					</view>
+				</picker>
+			</view>
+
+			<view class="cu-form-group">
+				<view class="title">考试成绩</view>
+				<input placeholder="请输入考试成绩" bindinput="updateCertRank" value="{{submitData.certificateGrade}}"></input>
+			</view>
+
+			<view class="cu-form-group">
+				<view class="title">发证时间</view>
+				<picker mode="date" fields='month' value="{{submitData.certificatePublishDate}}" bindchange="updateDate">
+					<view style="text-align:left;line-height:unset" class="picker text-green">
+						{{submitData.certificatePublishDate}}</view>
+				</picker>
+			</view>
+
+
+
+
+		</scroll-view>
+	</swiper-item>
+
+
+	<!-- 222证书上传 -->
+	<swiper-item>
+		<scroll-view scroll-y style="height:calc(100% - 160rpx)">
+
+
+			<view class="cu-bar bg-white">
+				<view class="action">
+					<text class="cuIcon-title text-red"></text>
+					<text>证书图片上传</text><text class="text-sm text-red">(必填)</text>
+				</view>
+			</view>
+
+			<view class="cu-form-group">
+				<view class="grid col-1 grid-square flex-sub">
+
+					<block wx:if="{{submitData.pictureUrl==null||submitData.pictureUrl==''}}">
+						<view class="solids" bindtap="chooseImage">
+							<text class="cuIcon-cameraadd"></text>
+						</view>
+					</block>
+
+					<block wx:else>
+						<view class="bg-img" bindtap="chooseImage">
+							<image src='{{submitData.pictureUrl}}' mode='aspectFit'></image>
+							<view class="cu-tag bg-red" catchtap="delImg">
+								<text class="cuIcon-close"></text>
+							</view>
+						</view>
+					</block>
+
+				</view>
+			</view>
+
+
+
+		</scroll-view>
+	</swiper-item>
+
+
+	<!-- 333补充信息 -->
+	<swiper-item>
+		<scroll-view scroll-y style="height:calc(100% - 160rpx)">
+
+			<view class="cu-bar bg-white">
+				<view class="action">
+					<text class="cuIcon-title text-yellow"></text>
+					<text>证书详情</text><text class="text-sm text-yellow">(选填)</text>
+				</view>
+				<view class="action">{{submitData.extInfo.description==""?'0':submitData.extInfo.description.length}}/200</view>
+			</view>
+
+			<view class="cu-form-group">
+				<textarea style="min-height:10rem" maxlength="200" bindinput="updateTextarea" placeholder="请输入证书上其他的所有信息"
+					value="{{submitData.extInfo.description}}"></textarea>
+			</view>
+
+		</scroll-view>
+
+	</swiper-item>
+
+</swiper>
+
+
+<view style="width:100%;position:fixed;bottom:20rpx" class="padding-xl flex justify-between">
+	<button wx:if="{{stepList.current}}" class="cu-btn bg-grey lg btn-for-this" data-type="back"
+		bindtap="changeStep">上一步</button>
+	<button class="cu-btn bg-green lg btn-for-this" data-type="next"
+		bindtap="changeStep">{{stepList.current==2?'提交更改':'下一步'}}</button>
+</view>

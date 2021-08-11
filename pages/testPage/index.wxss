@@ -1,0 +1,11 @@
+.cu-form-group text {
+	flex: 1;
+	font-size: 30rpx;
+	color: #555;
+	padding-right: 20rpx;
+	margin-right: 20rpx;
+	border-bottom: #555 solid 1px;
+	line-height: 60rpx;
+
+
+}

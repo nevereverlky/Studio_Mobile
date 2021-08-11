@@ -1,0 +1,7 @@
+.cu-form-group .title {
+  min-width: calc(4em + 30rpx);
+}
+
+.cu-form-group:nth-last-child(1) {
+  flex: 1;
+}

@@ -1,0 +1,72 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">管理活动</view>
+</cu-custom>
+
+
+<!--筛选项-->
+<view class="bg-white flex nav text-center">
+	<block wx:for="{{tabSelectHead}}" wx:key="item" wx:for-item="headItem" wx:for-index="headIndex">
+		<view style="color: #80848F;font-size: 30rpx;" class="cu-item flex-sub" data-index="{{headIndex}}" bindtap="tabNav">
+			{{headItem.title + ' - ' + headItem.data[headItem.current]}}
+			<!-- {{headItem.data[headItem.current]}} -->
+		</view>
+		<view class="tabLayer" hidden="{{!headItem.show}}">
+			<block wx:for="{{headItem.data}}" wx:key="item">
+				<text class="{{headItem.current==index?'active':''}}" data-index="{{headIndex}}" data-current="{{index}}" bindtap="tabSelectTap">
+				{{item}}
+				</text>
+			</block>
+		</view>
+	</block>
+</view>
+
+<!-- mask遮罩 -->
+<!-- <view style="height:100vh;width:100vw;z-index:3" class="bg-green" bindtap="tabNav"></view> -->
+
+
+<scroll-view scroll-x class="bg-white nav">
+	<view class="flex text-center">
+		<block wx:for="{{tabSelectState.data}}" wx:key="item">
+			<view class="cu-item flex-sub {{tabSelectState.current==index?'text-orange cur':''}}" data-id="{{index}}" bindtap="tabSelectState">
+				<text class="cuIcon-{{tabSelectState.icon[index]}}"></text> {{item}}
+			</view>
+		</block>
+	</view>
+</scroll-view>
+
+
+<!-- 活动详情卡片 -->
+<cu-actDetail show="{{showDetail.show}}" activityDetail="{{showDetail.data}}" bindfreshList="init" scannerPage="/pages/activityAdmin/manage/scanner/index" entryPage="/pages/activityAdmin/manage/createEntry/index" />
+
+
+<!-- 内容 -->
+<cu-scroll styleType="width:100vw;height:calc(100vh - 168rpx - 180rpx)" refreshState="{{refreshState}}" bindrefreshEvent="freshEvent" isLoading="{{isLoading}}" bindreachEnd="reachEnd">
+	<view class="cu-list menu">
+
+		<block wx:for="{{listData}}" wx:key="activityId">
+			<view class="cu-item" data-detail="{{item}}" bindtap="showAction">
+				<view class="content flex flex-direction">
+					<view class="flex justify-between">
+						<text style="line-height:1.4" class="text-df margin-top-sm">{{item.activityName}}</text>
+						<text class="arrow-for-this"></text>
+					</view>
+					<view class="flex justify-between">
+						<text class="text-grey text-sm">{{item.start}}</text>
+						<text class="text-sm text-grey">{{item.organizationMessage}}</text>
+					</view>
+				</view>
+			</view>
+		</block>
+
+	</view>
+
+	<!-- 暂无活动显示 -->
+	<view wx:if="{{listData.length==0}}" style="height:100%" class="flex flex-direction justify-center text-center">
+		<view class="{{isLoading?'rotate':''}} text-xsl padding">
+			<text class="cuIcon-{{isLoading?'loading':'post'}} text-grey"></text>
+		</view>
+		<view class="padding text-gray">{{isLoading?'加载中..':'暂无活动信息'}}</view>
+	</view>
+
+</cu-scroll>

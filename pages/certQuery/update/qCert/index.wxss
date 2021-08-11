@@ -1,0 +1,21 @@
+.cu-form-group .title {
+  /* font-size: 30rpx; */
+  font-weight: bold;
+  min-width: calc(4em + 30rpx);
+}
+
+.cu-form-group {
+  min-height: unset;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+
+.cu-form-group picker::after {
+	line-height: unset;
+}
+
+
+.btn-for-this {
+  width: 100%;
+  margin: 0 15rpx;
+}

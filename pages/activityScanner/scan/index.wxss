@@ -1,0 +1,27 @@
+.cu-form-group+.cu-form-group {
+	border-top: 0;
+}
+
+.solid {
+	border: 1rpx solid rgb(150, 150, 150);
+}
+
+.solid-top {
+	border-top: 1rpx solid rgb(150, 150, 150);
+}
+
+.solid-bottom {
+	border-bottom: 1rpx solid rgb(150, 150, 150);
+}
+.arrow-for-this:before {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 28rpx;
+  height: 28rpx;
+  color: var(--grey);
+  content: "\e6a3";
+  text-align: center;
+  font-size: 28rpx;
+  font-family: "cuIcon";
+  line-height: 1.4
+}

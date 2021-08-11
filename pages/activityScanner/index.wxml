@@ -1,0 +1,70 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">记录员任务</view>
+</cu-custom>
+
+<cu-scroll styleType="page" customNavi="{{true}}" refreshState="{{refreshState}}" bindrefreshEvent="freshEvent">
+
+	<block wx:for="{{listData}}" wx:key="item">
+		<!--no-card-->
+		<view class="cu-card article">
+			<view class="cu-item shadow" bindtap='goScan' data-name="{{item.activityName}}" data-id="{{item.activityId}}" data-type="{{item.type}}">
+				<view class="title margin-bottom-sm">
+					<view style="border-bottom:solid 1rpx #c3c3c3;line-height:normal" class="flex justify-between margin-top-sm">
+						<view style="flex:1" class="text-lg margin-bottom-sm">{{item.activityName}}</view>
+						<view style="font-weight:normal;width:fit-content;margin:auto unset;" class="margin-bottom-sm text-gray flex align-center justify-center">{{item.typeCN}}</view>
+					</view>
+				</view>
+
+				<view class="content">
+					<view class="desc">
+
+						<!-- <view class="text-content"> -->
+						<view style="color:#888;line-height:1.5rem">
+							<view class="flex">
+								<text>开始时间：</text>
+								<text>{{item.start}}</text>
+							</view>
+							<view class="flex">
+								<text>结束时间：</text>
+								<text>{{item.end}}</text>
+							</view>
+							<view wx:if="{{item.location}}" class="flex">
+								<text>地点：</text>
+								<text>{{item.location}}</text>
+							</view>
+							<view wx:if="{{item.description}}" class="flex">
+								<text>任务描述：</text>
+								<text style="flex:1">{{item.description}}</text>
+							</view>
+						</view>
+
+						<!-- <button style="width:100%" class="margin-top-sm cu-btn bg-blue">1分30秒</button>
+					<button style="width:100%" class="margin-top-sm cu-btn bg-red">报名</button>
+					<button style="width:100%" class="margin-top-sm cu-btn bg-green">已报名</button>
+					<button style="width:100%" class="margin-top-sm cu-btn bg-yellow">人已满</button>
+					<button style="width:100%" class="margin-top-sm cu-btn bg-purple">已过期</button>
+					<button style="width:100%" class="margin-top-sm cu-btn bg-orange">已结束</button> -->
+
+
+						<view class="margin-top">
+							<view class="cu-tag bg-green light sm round">{{item.term}}</view>
+							<view class="cu-tag bg-red light sm round">{{item.organizationMessage}}</view>
+						</view>
+
+
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+
+	<!-- 暂无显示 -->
+	<view wx:if="{{listData.length==0}}" style="height:100%" class="flex flex-direction justify-center text-center">
+		<view class="{{isLoading?'rotate':''}} text-xsl padding">
+			<text class="cuIcon-{{isLoading?'loading':'post'}} text-grey"></text>
+		</view>
+		<view class="padding text-gray">{{isLoading?'加载中..':'暂无任务哦'}}</view>
+	</view>
+
+</cu-scroll>

@@ -1,0 +1,44 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">分配记录员</view>
+</cu-custom>
+
+<cu-scroll customNavi="{{true}}" refreshState="{{refreshState}}" bindrefreshEvent="freshEvent">
+
+	<view class="cu-bar search bg-white">
+		<!-- <text class="margin-left cuIcon-scan"></text> -->
+		<view class="search-form round">
+			<text class="cuIcon-search"></text>
+			<input type="number" maxlength="20" placeholder="输入要添加的学号" value="{{newStuId}}" bindinput="updateStuId"></input>
+			<text wx:if="{{newStuId.length!=0}}" class="cuIcon-close padding-right-xs" bindtap="clearStuId"></text>
+		</view>
+
+		<view class="action">
+			<button class="margin-right-sm cu-btn bg-green shadow-blur round" data-type="id" bindtap="addScanner">添加</button>
+			<button class="cu-btn bg-green shadow-blur round" data-type="scan" bindtap="addScanner">扫码</button>
+		</view>
+	</view>
+
+	<view class="cu-list menu-avatar">
+		<view class="cu-item" wx:for="{{scannerList}}" wx:key='stuId'>
+			<view class="cu-avatar round lg" style="background-image:url({{item.avatarUrl!=null?item.avatarUrl:'/images/default-avatar.png'}});"></view>
+			<view class="content">
+				<view class="text-grey">{{item.realName}}</view>
+				<view class="text-gray text-sm">
+					<text class="cuIcon-infofill text-green"></text> 学号 {{item.stuId}}</view>
+			</view>
+			<view class="action" data-id="{{item.stuId}}" bindtap="deleteScanner">
+				<text style="font-size:44rpx" class="cuIcon-delete text-white bg-grey round padding-xs"></text>
+			</view>
+		</view>
+	</view>
+
+	<!-- 暂无活动显示 -->
+	<view wx:if="{{scannerList.length==0}}" style="height:calc(100% - 50px)" class="flex flex-direction justify-center text-center">
+		<view class="{{isLoading?'rotate':''}} text-xsl padding">
+			<text class="cuIcon-{{isLoading?'loading':'post'}} text-grey"></text>
+		</view>
+		<view class="padding text-gray">{{isLoading?'加载中..':'这里空空如也'}}</view>
+	</view>
+
+</cu-scroll>

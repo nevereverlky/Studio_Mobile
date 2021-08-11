@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "cu-search": "/components/cu-search/cu-search"
+  }
+}

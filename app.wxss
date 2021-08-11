@@ -1,0 +1,19 @@
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
+
+
+/* 旋转动画 */
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.rotate {
+  transition: .4s;
+  animation: rotate 1s linear infinite;
+}

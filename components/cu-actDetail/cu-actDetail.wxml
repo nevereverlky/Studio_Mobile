@@ -1,0 +1,87 @@
+<view wx:if="{{show}}" class="page-cont {{show?'animation-slide-top':''}}" bindtap="closeIt">
+	<view style="margin-top:calc({{CustomBar}}px + 8px)" class='top'>
+		<view class="cu-card dynamic">
+			<view class="cu-item shadow">
+
+				<view class="solids-bottom cu-list">
+					<view class="flex-sub text-black text-bold text-xl padding text-center">
+						<view>活动详情</view>
+					</view>
+				</view>
+
+				<view class="padding-xs flex align-center">
+					<view class="flex-sub text-left padding">
+
+						<!-- <text class="cuIcon-check margin-right-sm"></text> -->
+
+						<view class="flex text-content">
+							<text>活动名称：</text>
+							<text class="flex-sub">{{tmpActDetail.activityName}}</text>
+						</view>
+
+						<view class="flex text-content">
+							<text>活动编号：</text>
+							<text class="flex-sub">{{tmpActDetail.activityId}}</text>
+						</view>
+
+						<view class="flex text-content">
+							<text>举办单位：</text>
+							<text class="flex-sub">{{tmpActDetail.organizationMessage}}</text>
+						</view>
+
+						<view class="flex text-content">
+							<text>活动类型：</text>
+							<text class="flex-sub">{{tmpActDetail.typeCN}}</text>
+						</view>
+
+						<view class="flex text-content">
+							<text>开始时间：</text>
+							<text class="flex-sub">{{tmpActDetail.start}}</text>
+						</view>
+
+						<view class="flex text-content">
+							<text>结束时间：</text>
+							<text class="flex-sub">{{tmpActDetail.end}}</text>
+						</view>
+						<!-- {{dateDetail}} -->
+
+						<view class="flex text-content">
+							<text>活动学期：</text>
+							<text class="flex-sub">{{tmpActDetail.termCN}}</text>
+						</view>
+
+						<view class="flex text-content">
+							<text>活动状态：</text>
+							<text class="flex-sub">{{tmpActDetail.stateCN}}</text>
+						</view>
+
+						<view class="flex text-content">
+							<text>活动地点：</text>
+							<text class="flex-sub">{{tmpActDetail.location}}</text>
+						</view>
+
+						<view class="flex text-content">
+							<text>活动详情：</text>
+							<text class="flex-sub">{{tmpActDetail.description}}</text>
+						</view>
+
+						<view class="padding flex flex-wrap justify-between">
+							<button style="width:100%" class="cu-btn bg-blue lg" catchtap="toEntry">创建活动报名</button>
+							<button wx:if="{{tmpActDetail.stateCN!='已下线'}}" style="width:100%" class="cu-btn bg-green lg margin-top-sm" catchtap="toScanner">分配扫码员</button>
+
+							<button wx:if="{{tmpActDetail.stateCN=='准备中'||tmpActDetail.stateCN=='重启中'}}" style="width:100%" class="cu-btn bg-yellow lg margin-top-sm" data-type="publish" catchtap="changeActState">上线活动</button>
+							<button wx:if="{{tmpActDetail.stateCN=='已上线'}}" style="width:100%" class="cu-btn bg-orange lg margin-top-sm" data-type="finish" catchtap="changeActState">下线活动</button>
+
+							<button wx:if="{{tmpActDetail.stateCN=='已下线'}}" style="width:100%" class="cu-btn bg-red lg margin-top-sm" data-type="restart" catchtap="changeActState">重启活动</button>
+							<button wx:if="{{tmpActDetail.stateCN=='准备中'}}" style="width:100%" class="cu-btn bg-red lg margin-top-sm" data-type="cancel" catchtap="changeActState">取消活动</button>
+						</view>
+
+					</view>
+				</view>
+
+
+			</view>
+		</view>
+	</view>
+	
+</view>

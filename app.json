@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/accountAuth/prelogin/index",
+    "pages/accountAuth/bind/index",
+    "pages/accountAuth/cgPwd/index",
+
+    "pages/index/index",
+
+    "pages/stampDetail/index",
+
+
+    "pages/activityAdmin/add/index",
+    "pages/activityAdmin/manage/index",
+    "pages/activityAdmin/manage/scanner/index",
+    "pages/activityAdmin/manage/createEntry/index",
+
+    "pages/activityQuery/index",
+
+    "pages/activityScanner/index",
+    "pages/activityScanner/scan/index",
+
+    "pages/certQuery/index",
+    "pages/certQuery/detail/index",
+
+    "pages/certQuery/add/cCert/index",
+    "pages/certQuery/add/cetCert/index",
+    "pages/certQuery/add/qCert/index",
+    "pages/certQuery/add/sCert/index",
+
+    "pages/certQuery/update/cCert/index",
+    "pages/certQuery/update/cetCert/index",
+    "pages/certQuery/update/qCert/index",
+    "pages/certQuery/update/sCert/index",
+
+    "pages/certManager/index",
+    "pages/certManager/detail/index",
+
+
+
+    "pages/testPage/index",
+    "pages/devLogs/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#72C142",
+    "navigationBarTitleText": "信工第二课堂",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom",
+    "cu-scroll": "/components/cu-scroll/cu-scroll"
+  },
+  "sitemapLocation": "sitemap.json"
+}

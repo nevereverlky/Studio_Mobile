@@ -1,0 +1,95 @@
+<view style="wdith:100vw;height:100vh" class="flex flex-direction">
+
+	<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+		<view slot="backText">返回</view>
+		<view slot="content">活动扫码</view>
+	</cu-custom>
+
+	<cu-scroll class="flex-sub" styleType="part" customNavi="{{true}}" enableFresh="{{false}}">
+
+		<view class="cu-bar bg-white">
+			<view class="action">
+				<text class="cuIcon-title text-orange"></text>
+				<text class="margin-left-sm text-orange text-xl text-bold padding-xs">{{activityName}}</text>
+			</view>
+		</view>
+
+		<view class="cu-list menu-avatar">
+			<view class="cu-item" wx:for="{{scannerList}}" wx:key='stuId'>
+				<image class="cu-avatar round lg" src="{{item.avatarUrl!=null?item.avatarUrl:'/images/default-avatar.png'}}">
+				</image>
+				<view class="content">
+					<view class="text-grey">{{item.realName}}</view>
+					<view class="text-gray text-sm">
+						<text class="cuIcon-infofill text-green"></text>
+						<text class="margin-left-xs">学号 {{item.stuId}}</text>
+					</view>
+				</view>
+				<view class="action" data-id="{{item.stuId}}" data-index="{{index}}" bindtap="deleteScanner">
+					<text style="font-size:44rpx" class="cuIcon-delete text-white bg-grey round padding-xs"></text>
+				</view>
+			</view>
+		</view>
+
+		<!-- 暂无显示 -->
+		<view wx:if="{{scannerList.length==0}}" style="height:100%" class="flex flex-direction justify-center text-center">
+			<view class="text-xsl padding">
+				<text class="cuIcon-post text-grey"></text>
+			</view>
+			<view class="padding text-gray">这里空空如也</view>
+			<view class="text-gray text-sm">扫满五个自动提交</view>
+		</view>
+
+	</cu-scroll>
+
+
+	<view style="flex-direction:column" class="cu-bar bg-white padding-bottom-sm">
+
+		<!-- activityType -->
+		<block
+			wx:if="{{activityType=='volunteerActivity' || activityType=='volunteerWork' || activityType=='partyTimeActivity'}}">
+			<view style="width:100%" class="flex justify-between cu-form-group">
+				<view style="padding-right:0" class="title flex-sub">工作时长(小时)</view>
+				<view style="font-weight:bolder" class="flex justify-center">
+					<view class="cu-btn text-green solid" data-type="-" bindtap="updateTime">-</view>
+					<input style="padding:0;max-width:4rem" class="cu-btn bg-white solid-top solid-bottom flex-sub" maxlength="3"
+						value="{{workTime}}" data-type="input" bindinput="updateTime"></input>
+					<view class="cu-btn text-green solid" data-type="+" bindtap="updateTime">+</view>
+				</view>
+			</view>
+		</block>
+
+		<block wx:if="{{activityType=='practiceActivity'}}">
+			<view style="width:100%" class="flex justify-between cu-form-group" bindtap="showSheet">
+				<view style="padding-right:0" class="title flex-sub">实践等级</view>
+				<view class="cu-btn bg-white">{{workGrade.current==-1?'请选择':workGrade.data[workGrade.current]}}</view>
+				<view class="arrow-for-this"></view>
+			</view>
+		</block>
+
+		<block wx:if="{{activityType=='volunteerWork'}}">
+			<view style="width:100%" class="flex justify-between cu-form-group">
+				<view style="padding-right:0" class="title flex-sub">义工工作内容</view>
+				<input style="padding:0;text-align:left" class="cu-btn bg-white solid-bottom" placeholder="请输入工作内容"
+					bindinput="updateContent"></input>
+			</view>
+		</block>
+
+		<view style="width:100%" class="flex justify-between">
+			<view class="cu-form-group">
+				<view style="padding-right:0" class="title">连续扫码</view>
+				<switch class="margin-left-sm" bindchange="keepScan" checked="{{keepScan}}"></switch>
+			</view>
+			<view class="cu-form-group">
+				<view class="cu-btn bg-green round">
+					<button class="margin-right-xs cu-btn bg-green" bindtap="scanCode">{{scannerList.length!=5?'扫码':'提交'}}</button>
+					<button class="margin-left-xs cu-btn bg-green" bindtap="checkSubmit">提交</button>
+				</view>
+			</view>
+		</view>
+
+
+	</view>
+
+
+</view>

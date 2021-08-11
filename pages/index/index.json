@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "cu-guide": "/components/cu-guide/cu-guide",
+    "cu-qrcode": "/components/cu-qrcode/cu-qrcode"
+  }
+}

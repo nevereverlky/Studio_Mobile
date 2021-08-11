@@ -1,0 +1,14 @@
+<view class="cu-modal {{show?'show':''}}" bindtap="unShowQrcode">
+	<view class="cu-dialog">
+		<view class="cu-bar bg-white justify-end">
+			<view class="content">我的二维码</view>
+			<view class="action">
+				<text class="cuIcon-close text-red"></text>
+			</view>
+		</view>
+		<view class="padding-sm flex flex-direction justify-center align-center margin-bottom-xl">
+			<image style="width:100rpx;height:100rpx" class="{{show?'rotate':''}}" src="/images/fengche.png"></image>
+			<image style="width:400rpx;height:400rpx" class="margin-top-sm" src='{{qrcode}}' />
+		</view>
+	</view>
+</view>

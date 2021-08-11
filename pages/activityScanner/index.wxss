@@ -1,0 +1,55 @@
+@import "../../colorui/animation.wxss";
+
+.empty_page {
+  z-index: -1;
+  position: absolute;
+  width: 750rpx;
+  height: 1100rpx;
+}
+
+.swiper-tab {
+  width: 100%;
+  text-align: center;
+  line-height: 80rpx;
+  background-color: white;
+  z-index: 2;
+  /* position: fixed; */
+}
+
+.swiper-tab-list {
+  font-size: 30rpx;
+  display: inline-block;
+  width: 45%;
+  color: #80848F;
+  border-bottom: 0rpx;
+  position: relative;
+}
+
+.tabLayer {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .15);
+  width: 750rpx;
+  overflow: hidden;
+  position: absolute;
+  /* margin-top: 30px; */
+  z-index: 2;
+  background: #fff;
+  padding-bottom: 40rpx;
+  border-bottom: solid 1px #eee;
+  text-align: center;
+}
+
+.tabLayer text {
+  width: 210rpx;
+  height: 60rpx;
+  line-height: 22rpx;
+  color: #666;
+  float: left;
+  border: solid 1px #eee;
+  margin: 20rpx 0 0 26rpx;
+  font-size: 15px;
+}
+
+.tabLayer .active {
+  color: #e64340;
+  border-color: #e64340;
+}

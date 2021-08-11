@@ -1,0 +1,167 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">活动查询</view>
+</cu-custom>
+
+<!-- 活动详情卡片 -->
+<cu-entryDetail show="{{showDetail.show}}" activityDetail="{{showDetail.data}}" />
+
+
+<!-- 弹窗 - 确认报名 -->
+<view class="cu-modal {{showConfirm.show?'show':''}}">
+	<view class="cu-dialog">
+		<view class="cu-bar bg-white justify-end">
+			<view class="content">报名确认</view>
+			<view class="action" data-type="close" bindtap="showConfirm">
+				<text class="cuIcon-close text-red"></text>
+			</view>
+		</view>
+		<view class="padding-xl flex flex-direction text-content">
+
+			<view class="flex justify-center">
+				<text class="text-xxl text-center">{{showConfirm.content.title}}</text>
+			</view>
+
+			<view class="flex margin-top">
+				<text class="cuIcon-tag text-green"></text>
+				<text class="margin-left-sm text-4">活动名称：</text>
+				<text class="text-left">{{showConfirm.content.activityName}}</text>
+			</view>
+
+			<view class="flex justify-start align-start">
+				<text class="cuIcon-time text-orange"></text>
+				<text class="margin-left-sm text-4">活动时间：</text>
+				<text class="text-left">{{showConfirm.content.start}}</text>
+			</view>
+
+			<view wx:if="{{showConfirm.content.location}}" class="flex">
+				<text class="cuIcon-locationfill text-orange"></text>
+				<text class="margin-left-sm text-4">活动地点：</text>
+				<text class="text-left">{{showConfirm.content.location}}</text>
+			</view>
+
+			<view class="flex margin-top-sm justify-center">
+				<!-- <text class="cuIcon-warn text-orange"></text> -->
+				<text class="margin-left-sm text-orange text-lg text-center">一旦报名无法取消，确认要报名吗？</text>
+			</view>
+		</view>
+
+		<view class="cu-bar bg-white">
+			<view class="action margin-0 flex-sub text-green" data-type="close" bindtap="showConfirm">
+				<text class="cuIcon-pullleft text-green"></text>我再想想
+			</view>
+			<view class="action margin-0 flex-sub text-red solid-left" data-detail="{{showConfirm.content}}" data-type="confirm" bindtap="showConfirm">
+				<text class="cuIcon-check text-red"></text>确认报名
+			</view>
+		</view>
+	</view>
+</view>
+<!-- END弹窗 - 确认报名 -->
+
+
+<!--筛选项-->
+<view class="bg-white flex nav text-center">
+
+	<block wx:for="{{tabSelectHead}}" wx:key="item" wx:for-item="headItem" wx:for-index="headIndex">
+
+		<view style="color: #80848F;font-size: 30rpx;" class="cu-item flex-sub" data-index="{{headIndex}}" bindtap="tabNav">
+			{{headItem.title + ' - ' + headItem.data[headItem.current]}}
+		</view>
+
+		<view class="tabLayer" hidden="{{!headItem.show}}">
+			<block wx:for="{{headItem.data}}" wx:key="item">
+				<text class="{{headItem.current==index?'active':''}}" data-index="{{headIndex}}" data-current="{{index}}" bindtap="tabSelectTap">
+				{{item}}
+				</text>
+			</block>
+		</view>
+
+	</block>
+
+</view>
+
+<!-- mask遮罩 -->
+<!-- <view style="height:100vh;width:100vw;z-index:3" class="bg-green" bindtap="tabNav"></view> -->
+
+<!-- <scroll-view scroll-x class="bg-white nav">
+	<view class="flex text-center">
+		<block wx:for="{{tabSelectState.data}}" wx:key="item">
+			<view class="cu-item flex-sub {{tabSelectState.current==index?'text-orange cur':''}}" data-id="{{index}}" bindtap="tabSelectState"> {{item}} </view>
+		</block>
+	</view>
+</scroll-view> -->
+
+
+<cu-scroll styleType="width:100vw;height:calc(100vh - 168rpx - 90rpx)" refreshState="{{refreshState}}" bindrefreshEvent="freshEvent" isLoading="{{isLoading}}" bindreachEnd="reachEnd">
+
+	<!-- wx:key性能优化 -->
+	<block wx:for="{{listData}}" wx:key="activityEntryId">
+		<!--no-card-->
+		<view class="cu-card article">
+			<view class="cu-item shadow">
+				<view class="title margin-bottom-sm">
+					<view style="border-bottom:solid 1rpx #c3c3c3;line-height:normal" class="flex justify-between margin-top-sm">
+						<view class="text-lg margin-bottom-sm">{{item.title}}</view>
+						<!-- <view wx:if="{{pageInfo.more}}" style="font-weight:normal;width:fit-content;margin:auto unset" class="text-gray">{{item.activityTime}}小时</view> -->
+					</view>
+				</view>
+
+				<view class="content">
+					<view class="desc">
+
+						<!-- <view class="text-content"> -->
+						<view style="color:#888;line-height:1.5rem">
+							<view class="flex">
+								<text>报名开始：</text><text>{{item.activityEntryStart}}</text>
+							</view>
+							<view class="flex">
+								<text>报名截止：</text><text>{{item.activityEntryEnd}}</text>
+							</view>
+							<view class="flex">
+								<text>活动开始：</text><text>{{item.start}}</text>
+							</view>
+							<!-- <view wx:if="{{item.location}}" class="flex">
+							<text>地点：</text><text>{{item.location}}</text>
+						</view> -->
+							<!-- <view class="flex">
+							<text>人数：</text><text>{{item.number}} 人</text>
+						</view> -->
+							<!-- <view wx:if="{{item.choose}}" class="flex">
+							<text>选项：</text><text>{{item.choose}}</text>
+						</view> -->
+							<view class="flex">
+								<text>描述：</text>
+								<text style="flex:1">{{item.description}}</text>
+							</view>
+						</view>
+
+						<button style="width:100%" class="margin-top-sm cu-btn bg-green" data-index="{{index}}" bindtap="showDetail">查看详情</button>
+
+						<button wx:if="{{item.status=='COUNTDOWN'}}" style="width:100%" class="margin-top-sm cu-btn bg-blue">1分30秒</button>
+						<button wx:if="{{item.status=='APPROVED'}}" style="width:100%" class="margin-top-sm cu-btn bg-grey">未开始</button>
+						<button wx:if="{{item.status=='REGISTRATION'}}" style="width:100%" class="margin-top-sm cu-btn bg-red" data-detail="{{item}}" bindtap="showConfirm">报名</button>
+						<button wx:if="{{item.status=='EXCEED'}}" style="width:100%" class="margin-top-sm cu-btn bg-yellow">人已满</button>
+						<button wx:if="{{item.status=='FINISHED'}}" style="width:100%" class="margin-top-sm cu-btn bg-purple">已过期</button>
+						<button wx:if="{{item.status=='CANCEL_REGISTERED'}}" style="width:100%" class="margin-top-sm cu-btn bg-orange" data-id="{{item.activityEntryId}}" bindtap="goCancelSign">取消报名</button>
+
+						<view class="margin-top">
+							<!-- <view class="cu-tag bg-green light sm round">{{item.term}}</view> -->
+							<view class="cu-tag bg-red light sm round">{{item.activityType}}</view>
+						</view>
+
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+
+
+	<!-- 暂无活动显示 -->
+	<view wx:if="{{listData.length==0}}" style="height:100%" class="flex flex-direction justify-center text-center">
+		<view class="{{isLoading?'rotate':''}} text-xsl padding">
+			<text class="cuIcon-{{isLoading?'loading':'post'}} text-grey"></text>
+		</view>
+		<view class="padding text-gray">{{isLoading?'加载中..':'暂无活动哦'}}</view>
+	</view>
+
+</cu-scroll>

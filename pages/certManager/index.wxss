@@ -1,0 +1,12 @@
+.arrow-for-this:before {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 28rpx;
+  height: 28rpx;
+  color: var(--grey);
+  content: "\e6a3";
+  text-align: center;
+  font-size: 28rpx;
+  font-family: "cuIcon";
+  line-height: 1.4
+}

@@ -1,0 +1,193 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">证书详情</view>
+</cu-custom>
+
+<!-- 翻译中文 -->
+<wxs module="translate">
+	var certType = function (eng) {
+		switch (eng) {
+			case 'QUALIFICATIONS': return '资格证书'
+			case 'SKILL': return '技能证书'
+			case 'COMPETITION': return '竞赛证书'
+			case 'CET_4_6': return '四六级证书'
+		}
+	}
+
+	var type = function (eng) {
+		switch (eng) {
+			case 'Normal': return '常规证书'
+			case 'Teacher': return '教师资格证'
+			case 'International': return 'ACCA/CFA'
+			case 'CET_4': return '四级证书'
+			case 'CET_6': return '六级证书'
+		}
+	}
+
+	var state = function (eng) {
+		switch (eng) {
+			case 'UNREVIEWED': return '未审核'
+			case 'APPROVED': return '已通过'
+			case 'REJECTED': return '已驳回'
+		}
+	}
+	module.exports = {
+		certType: certType,
+		type: type,
+		state: state
+	}
+</wxs>
+
+
+<view class="cu-form-group">
+	<view class="title">证书类型</view>
+	<text>{{translate.certType(certificateType)}}</text>
+</view>
+
+<!-- <view class="cu-form-group">
+	<view class="title">证书ID</view>
+	<text>{{certificateId}}</text>
+</view> -->
+
+
+
+<view class="cu-form-group">
+	<view class="title">证书状态</view>
+	<text>{{translate.state(status)}}{{status=='REJECTED'?' - ' + rejectReason:''}}</text>
+</view>
+
+<view class="cu-form-group">
+	<view class="title">发证时间</view>
+	<text>{{certificatePublishTime}}</text>
+</view>
+
+<view wx:if="{{expirationTime}}" class="cu-form-group">
+	<view class="title">证书到期</view>
+	<text>{{expirationTime}}</text>
+</view>
+
+
+
+<view wx:if="{{certificateName}}" class="cu-form-group margin-top">
+	<view class="title">证书名称</view>
+	<text>{{certificateName}}</text>
+</view>
+<view wx:if="{{competitionName}}" class="cu-form-group">
+	<view class="title">竞赛名称</view>
+	<text>{{competitionName}}</text>
+</view>
+
+<view class="cu-form-group">
+	<view class="title">证书图片</view>
+	<image class="cu-avatar radius bg-gray" src="{{pictureUrl}}" data-url="{{pictureUrl}}" bindtap="showPicture"></image>
+</view>
+
+<view wx:if="{{type}}" class="cu-form-group">
+	<view class="title">证书小类</view>
+	<text wx:if="{{certificateType!='CET_4_6'}}">{{translate.type(type)}}</text>
+	<text wx:if="{{certificateType=='CET_4_6'}}">{{translate.type(rank)}}</text>
+</view>
+
+
+<view wx:if="{{extInfo.teacherLevel}}" class="cu-form-group">
+	<view class="title">资格等级</view>
+	<text>{{extInfo.teacherLevel}}</text>
+</view>
+
+
+<view wx:if="{{extInfo.teacherSubject}}" class="cu-form-group">
+	<view class="title">任教学科</view>
+	<text>{{extInfo.teacherSubject}}</text>
+</view>
+
+
+<view wx:if="{{certificateOrganization}}" class="cu-form-group">
+	<view class="title">发证单位</view>
+	<text>{{certificateOrganization}}</text>
+</view>
+
+
+<view wx:if="{{rank}}" class="cu-form-group margin-top">
+	<view class="title">证书等级</view>
+	<text>{{rank}}</text>
+</view>
+
+<view wx:if="{{certificateGrade}}" class="cu-form-group {{certificateGrade?'':'margin-top'}}">
+	<view class="title">考试成绩</view>
+	<text>{{certificateGrade}}</text>
+</view>
+
+
+
+<view wx:if="{{teamName}}" class="cu-form-group">
+	<view class="title">作品/队名</view>
+	<text>{{teamName}}</text>
+</view>
+
+
+<block wx:if="{{workUserId}}">
+	<block wx:if="{{workUserId.length==1}}">
+		<view class="cu-form-group">
+			<view class="title">队员学号</view>
+			<text>{{workUserId[0]}}</text>
+		</view>
+	</block>
+	<block wx:if="{{workUserId.length!=1}}" wx:for="{{workUserId}}" wx:key="item">
+		<view class="cu-form-group">
+			<view class="title">队员学号{{index+1}}</view>
+			<text>{{item[index]}}</text>
+		</view>
+	</block>
+</block>
+
+
+<view wx:if="{{certificateNumber}}" class="cu-form-group">
+	<view class="title">证书号码</view>
+	<text>{{certificateNumber}}</text>
+</view>
+
+
+<block wx:if="{{teacher}}">
+	<block wx:if="{{teacher.length==1}}">
+		<view class="cu-form-group">
+			<view class="title">指导老师</view>
+			<text>{{teacher[0].teacherName}}</text>
+		</view>
+	</block>
+	<block wx:if="{{teacher.length!=1}}" wx:for="{{teacher}}" wx:key="item">
+		<view class="cu-form-group">
+			<view class="title">指导老师{{index+1}}</view>
+			<text>{{teacher[index].teacherName}}</text>
+		</view>
+	</block>
+</block>
+
+<view wx:if="{{extInfo.description}}" class="cu-form-group">
+	<view class="title">证书详情</view>
+	<text>{{extInfo.description}}</text>
+</view>
+
+<block wx:if="{{status=='APPROVED' || status=='UNREVIEWED'}}">
+	<view class="cu-form-group margin-top">
+		<view class="title">驳回理由</view>
+		<input type="text" placeholder="如：证书过期/类别错误/资料不全..." bindinput="updateRejectReason" />
+	</view>
+</block>
+
+<!-- <view wx:if="{{confirmUserId}}" class="cu-form-group">
+	<view class="title">核验人ID</view>
+	<text>{{confirmUserId}}</text>
+</view> -->
+
+<view class="flex flex-direction justify-center padding">
+
+	<block wx:if="{{status=='UNREVIEWED'}}">
+		<button class="cu-btn bg-green lg" catchtap="toPass">通过审核</button>
+	</block>
+
+	<block wx:if="{{status=='APPROVED' || status=='UNREVIEWED'}}">
+		<button class="cu-btn bg-orange lg margin-top" catchtap="toReject">驳回申请</button>
+	</block>
+
+	<!-- <button class="cu-btn bg-red lg margin-top" catchtap="toDelete">删除证书</button> -->
+</view>

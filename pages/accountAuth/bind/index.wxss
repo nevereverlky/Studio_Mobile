@@ -1,0 +1,9 @@
+@import "../../../colorui/animation.wxss";
+
+/* .cu-load.loading::after {
+	content: "请稍后...";
+} */
+
+/* .cu-load.erro::after {
+	content: "失败";
+} */

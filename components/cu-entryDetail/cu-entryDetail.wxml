@@ -1,0 +1,91 @@
+<view wx:if="{{show}}" class="page-cont {{show?'animation-slide-top':''}}" bindtap="closeIt">
+	<view style="margin-top:calc({{CustomBar}}px + 8px)" class='top'>
+		<view class="cu-card dynamic">
+			<view class="cu-item shadow">
+				<view class="solids-bottom cu-list menu-avatar">
+					<view class="cu-item">
+						<image class="cu-avatar round lg" src="../../images/LOGOnew.png"></image>
+						<view class="content flex-sub">
+							<view>{{activityDetail.title}}{{activityDetail.title.length>10?'':' - 活动报名详情'}}</view>
+						</view>
+					</view>
+				</view>
+				<view class="padding-xs flex align-center">
+					<view class="flex-sub text-center">
+						<view class="text-xl padding">
+							<text class="text-black text-bold">{{activityDetail.activityName}}</text>
+						</view>
+						<view>{{activityDetail.start}}</view>
+						<view class="text-lg">{{dateDetail}}</view>
+						<view wx:if="{{activityDetail.location}}" class="padding">{{activityDetail.location}}</view>
+
+						<block wx:if="{{qrCodeSrc!=''}}">
+							<view class="flex justify-center align-center">
+								<image style="width:300rpx;height:300rpx;" src="{{qrCodeSrc}}" catchtap="saveToAlbum"></image>
+							</view>
+						</block>
+						<block wx:else>
+							<view class="padding flex flex-direction justify-center">
+								<!-- REGISTRATION bg-red 确认报名
+							COUNTDOWN bg-blue 1分30秒
+							APPROVED bg-grey 未开始
+							EXCEED bg-yellow 人已满
+							FINISHED bg-purple 已过期
+							CANCEL_REGISTERED bg-orange 取消报名 -->
+								<button wx:if="{{qrCodeSrc==''}}" class="cu-btn bg-blue lg" catchtap="createQRCode">生成邀请小程序码</button>
+							</view>
+						</block>
+
+					</view>
+				</view>
+				<view class="cu-list menu-avatar comment">
+
+					<view class="solids-bottom cu-item">
+						<view class="cuIcon-group_fill cu-avatar round bg-green"></view>
+						<view class="content">
+							<view class="flex justify-between">
+								<view class="text-grey">最大人数</view>
+								<view class="text-gray">{{activityDetail.number}}</view>
+							</view>
+						</view>
+					</view>
+
+					<view class="solids-bottom cu-item">
+						<view class="cuIcon-radioboxfill cu-avatar round bg-green"></view>
+						<view class="content">
+							<view class="flex justify-between">
+								<view class="text-grey">活动选项</view>
+								<view>
+									<view class="cu-tag round bg-grey light">{{activityDetail.choose}}</view>
+								</view>
+							</view>
+						</view>
+					</view>
+
+					<view class="solids-bottom cu-item" data-phone="{{activityDetail.contact}}" catchtap="makePhoneCall">
+						<view class="cuIcon-profilefill cu-avatar round bg-green"></view>
+						<view class="content">
+							<view class="flex justify-between">
+								<view class="flex flex-direction justify-between">
+									<view class="text-grey">活动联系人</view>
+									<view class="text-gray text-sm">{{activityDetail.linkman}}</view>
+								</view>
+								<view class="text-gray text-df">{{activityDetail.contact}}</view>
+							</view>
+						</view>
+					</view>
+
+					<view class="cu-item">
+						<view class="cuIcon-formfill cu-avatar round bg-green"></view>
+						<view class="content">
+							<view class="text-grey">活动详情</view>
+							<view class="text-gray text-sm">{{activityDetail.description}}</view>
+						</view>
+					</view>
+
+				</view>
+			</view>
+		</view>
+	</view>
+	<!-- <view class='bottom' bindtap='closeThis'>确认报名</view> -->
+</view>

@@ -1,0 +1,44 @@
+@import "../../../colorui/animation.wxss";
+
+.tabLayer {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .15);
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  margin-top: 80rpx;
+  z-index: 2;
+  background: #fff;
+  padding-bottom: 40rpx;
+  border-bottom: solid 1px #eee;
+  text-align: center;
+}
+
+.tabLayer text {
+  width: 210rpx;
+  height: 60rpx;
+  line-height: 22rpx;
+  color: #666;
+  float: left;
+  border: solid 1px #eee;
+  margin: 20rpx 0 0 26rpx;
+  font-size: 15px;
+}
+
+.tabLayer .active {
+  color: #e64340;
+  border-color: #e64340;
+}
+
+.arrow-for-this:before {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 28rpx;
+  height: 28rpx;
+  color: var(--grey);
+  content: "\e6a3";
+  text-align: center;
+  font-size: 28rpx;
+  font-family: "cuIcon";
+  line-height: 1.4
+}
+

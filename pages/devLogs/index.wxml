@@ -1,0 +1,29 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">更新日志</view>
+</cu-custom>
+
+<scroll-view scroll-y class="scrollPage">
+
+	<view class="cu-timeline">
+
+		<block wx:for="{{detailList}}" wx:key="item">
+			<view class="cu-item text-green">
+				<view class="bg-gradual-green content shadow">
+					<view class="cu-capsule radius">
+						<view class="cu-tag bg-white text-green">{{item.version}}</view>
+						<view class="cu-tag line-white">{{item.time}}</view>
+					</view>
+					<view class="margin-top-sm text-content">
+						<view style="white-space:pre-line">{{item.content}}</view>
+					</view>
+				</view>
+			</view>
+		</block>
+
+	</view>
+	<view style="font-size:25rpx;color:var(--gray)" class="flex flex-direction align-center margin-top-sm">—— 没有更多了哦 ——</view>
+
+	<view class="cu-tabbar-height"></view>
+
+</scroll-view>

@@ -1,0 +1,27 @@
+
+/* 去掉原样式 */
+.cu-form-group picker {
+	flex: 1;
+	padding-right: unset;
+	overflow: hidden;
+	position: relative;
+}
+
+.cu-form-group picker::after {
+	font-family: unset;
+	display: unset;
+	content: unset;
+	position: unset;
+	font-size: unset;
+	color: unset;
+	line-height: unset;
+	width: unset;
+	text-align: unset;
+	top: unset;
+	bottom: unset;
+	right: unset;
+  margin: unset;
+}
+.cu-form-group .title {
+  min-width: calc(4em + 30rpx);
+}

@@ -1,0 +1,52 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">我的证书</view>
+</cu-custom>
+
+<cu-certDetail show="{{certDetail.show}}" certDetail="{{certDetail.data}}"></cu-certDetail>
+
+<cu-scroll customNavi="{{true}}" refreshState="{{refreshState}}" bindrefreshEvent="freshEvent">
+
+	<block wx:for="{{itemList}}" wx:key="item">
+
+		<view class="cu-bar bg-white solid-bottom margin-top">
+			<view class="action">
+				<text class="cuIcon-title text-orange"></text> {{item.name}}
+			</view>
+			<view class="action">
+				<button class="cu-btn bg-green shadow" bindtap="toAdd" data-type="{{item.type}}">录入</button>
+			</view>
+		</view>
+
+		<!-- <view class="cu-list grid col-3 no-border}}"> -->
+		<view class="cu-list grid col-3}}">
+			<view class="cu-item flex justify-center" wx:for="{{item.data}}" wx:key="item" wx:if="{{item.data.length!=0}}"
+				data-detail="{{item}}" bindtap="toDetail">
+
+				<view wx:if="{{item.status=='APPROVED'}}" style="z-index:100" class="tag-for-this bg-green">已审核</view>
+				<view wx:if="{{item.status=='UNREVIEWED'}}" style="z-index:100" class="tag-for-this bg-orange">审核中</view>
+				<view wx:if="{{item.status=='REJECTED'}}" style="z-index:100" class="tag-for-this bg-red">已驳回</view>
+
+				<image style="max-height:250rpx" class="padding-left padding-right" src="{{item.pictureUrl}}" mode="widthFix"></image>
+				<view class="cuIcon">
+
+					<text wx:if="{{item.certificateName}}"
+						class="margin-left margin-right text-cut">{{item.certificateName}}</text>
+					<text wx:if="{{item.competitionName}}"
+						class="margin-left margin-right text-cut">{{item.competitionName}}</text>
+				</view>
+
+			</view>
+
+			<view wx:if="{{item.data.length==0}}" class="flex-sub text-center">
+				<view class="{{isLoading?'rotate':''}} text-xsl padding">
+					<text class="cuIcon-{{isLoading?'loading':'post'}} text-grey"></text>
+				</view>
+				<view class="padding text-gray">{{isLoading?'加载中..':'虚以待位'}}</view>
+			</view>
+
+		</view>
+
+	</block>
+
+</cu-scroll>

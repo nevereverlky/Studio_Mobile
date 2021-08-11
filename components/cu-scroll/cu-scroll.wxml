@@ -1,0 +1,4 @@
+<scroll-view style="{{scrollStyle}}" scroll-y refresher-enabled="{{enableFresh}}" refresher-background="{{cusBGC}}" refresher-triggered="{{refreshState}}" bindrefresherrefresh="refreshEvent" bindscrolltolower="toEnd">
+	<slot></slot>
+	<view wx:if="{{isLoading!=null}}" class="cu-load margin-bottom {{isLoading?'loading':'over'}}"></view>
+</scroll-view>

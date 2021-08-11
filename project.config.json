@@ -1,0 +1,115 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": false,
+		"postcss": true,
+		"preloadBackgroundData": false,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": false,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"uglifyFileName": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useIsolateContext": true,
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false,
+		"useMultiFrameRuntime": false,
+		"useApiHook": true,
+		"packNpmManually": false,
+		"packNpmRelationList": []
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.12.2",
+	"appid": "wx551daf14b0dfa9c0",
+	"projectname": "%E4%BF%A1%E5%B7%A5%E7%AC%AC%E4%BA%8C%E8%AF%BE%E5%A0%82UI%2B10",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"skeleton-config": {
+			"global": {
+				"loading": "shine"
+			}
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "我的证书",
+					"pathName": "pages/certQuery/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "测试页面",
+					"pathName": "pages/testPage/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "启动参数模拟",
+					"pathName": "pages/accountAuth/prelogin/index",
+					"query": "scene=e%3D202009051500304136640310062020",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "证书审核",
+					"pathName": "pages/certManager/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "用户登录",
+					"pathName": "pages/accountAuth/bind/index",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

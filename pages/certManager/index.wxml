@@ -1,0 +1,112 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">证书审核</view>
+</cu-custom>
+
+<scroll-view scroll-x class="bg-white nav">
+	<view class="flex text-center">
+		<block wx:for="{{tabSelectHead.data}}" wx:key="item">
+			<view class="cu-item flex-sub {{tabSelectHead.current==index?'text-blue cur':''}}" data-id="{{index}}"
+				bindtap="tabSelectHead">
+				<text class="cuIcon-{{tabSelectHead.icon[index]}}"></text>
+				{{item}}
+			</view>
+		</block>
+	</view>
+</scroll-view>
+
+<scroll-view scroll-x class="bg-white nav">
+	<view class="flex text-center">
+		<block wx:for="{{tabSelectState.data}}" wx:key="item">
+			<view class="cu-item flex-sub {{tabSelectState.current==index?'text-orange cur':''}}" data-id="{{index}}"
+				bindtap="tabSelectState">
+				{{item}}
+			</view>
+		</block>
+	</view>
+</scroll-view>
+
+<!-- 内容 -->
+<cu-scroll styleType="width:100vw;height:calc(100vh - 168rpx - 90rpx - 90rpx)" refreshState="{{refreshState}}"
+	bindrefreshEvent="freshEvent" isLoading="{{isLoading}}" bindreachEnd="reachEnd">
+	<view class="cu-list menu">
+
+		<block wx:for="{{listData}}" wx:key="activityId"
+			wx:if="{{item.status==tabSelectHead.more[tabSelectHead.current] && item.certificateType==tabSelectState.more[tabSelectState.current]}}">
+			<view class="cu-item" data-certificateId="{{item.certificateId}}" bindtap="showDetail" id='itemNum'>
+				<view class="content flex flex-direction">
+					<!-- 主标题 -->
+					<view class="flex justify-between">
+
+						<!-- 资格证书 -->
+						<block wx:if="{{item.certificateType=='QUALIFICATIONS'}}">
+							<text style="line-height:1.4" class="text-df margin-top-sm">{{item.certificateName}}</text>
+						</block>
+
+						<!-- 技能证书 -->
+						<block wx:if="{{item.certificateType=='SKILL'}}">
+							<text style="line-height:1.4" class="text-df margin-top-sm">{{item.certificateName}}</text>
+						</block>
+
+						<!-- 竞赛证书 -->
+						<block wx:if="{{item.certificateType=='COMPETITION'}}">
+							<text style="line-height:1.4" class="text-df margin-top-sm">{{item.competitionName}}</text>
+						</block>
+
+						<!-- 四六级证书 -->
+						<block wx:if="{{item.certificateType=='CET_4_6'}}">
+							<text style="line-height:1.4" class="text-df margin-top-sm">{{item.certificateName}}</text>
+						</block>
+
+						<text class="arrow-for-this"></text>
+					</view>
+					<!-- 副标题/最多三个/flexrow -->
+					<view class="flex justify-between">
+
+						<!-- 资格证书 -->
+						<block wx:if="{{item.certificateType=='QUALIFICATIONS'}}">
+							<text class="text-grey text-sm">等级：{{item.rank}}</text>
+							<text class="text-grey text-sm">类型：{{item.type}}</text>
+							<text class="text-grey text-sm">{{item.certificateOrganization}}</text>
+						</block>
+
+						<!-- 技能证书 -->
+						<block wx:if="{{item.certificateType=='SKILL'}}">
+							<text class="text-grey text-sm">等级：{{item.rank}}</text>
+							<text class="text-grey text-sm">编号：{{item.certificateNumber}}</text>
+						</block>
+
+						<!-- 竞赛证书 -->
+						<block wx:if="{{item.certificateType=='COMPETITION'}}">
+							<text class="text-grey text-sm">等级：{{item.rank}}</text>
+							<block wx:if="{{item.teamName}}">
+								<text class="text-grey text-sm">名称：{{item.teamName}}</text>
+							</block>
+							<block wx:else>
+								<text class="text-grey text-sm">个人竞赛</text>
+							</block>
+						</block>
+
+						<!-- 四六级证书 -->
+						<block wx:if="{{item.certificateType=='CET_4_6'}}">
+							<text class="text-grey text-sm">分数：{{item.certificateGrade}}</text>
+							<text class="text-grey text-sm">等级：{{item.rank}}</text>
+							<text class="text-grey text-sm">{{item.certificateOrganization}}</text>
+						</block>
+
+					</view>
+				</view>
+			</view>
+		</block>
+
+	</view>
+
+	<!-- 暂无显示 -->
+	<view wx:if="{{subEmpty || listData.length==0}}" style="height:100%" class="flex flex-direction justify-center text-center">
+		<view class="{{isLoading?'rotate':''}} text-xsl padding">
+			<text class="cuIcon-{{isLoading?'loading':'post'}} text-grey"></text>
+		</view>
+		<view class="padding text-gray">{{isLoading?'加载中..':'暂无证书数据'}}</view>
+	</view>
+
+</cu-scroll>

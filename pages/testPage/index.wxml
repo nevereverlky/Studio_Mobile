@@ -1,0 +1,77 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="content">测试页面</view>
+</cu-custom>
+
+
+<view class="cu-list menu">
+
+	<view class="cu-item">
+		<view class="content">
+			<text class="cuIcon-circlefill text-grey"></text>
+			<text class="text-grey">数据授权相关</text>
+		</view>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">OPENID</view>
+		<text class="text-cut" data-value="{{openid}}" bindtap="copyIt">{{openid?openid:'点击复制'}}</text>
+		<button class="cu-btn bg-green shadow" bindtap="getOpenId">获取</button>
+	</view>
+
+	<view class="cu-form-group">
+		<view class="title">AccessToken</view>
+		<text class="text-cut" data-value="{{AccessToken}}" bindtap="copyIt">{{AccessToken?AccessToken:'点击复制'}}</text>
+		<button class="cu-btn bg-green shadow" bindtap="getAccessToken">获取</button>
+	</view>
+
+</view>
+
+
+<view class="cu-list menu margin-top">
+
+	<view class="cu-item">
+		<view class="content">
+			<text class="cuIcon-circlefill text-grey"></text>
+			<text class="text-grey">订阅消息测试</text>
+		</view>
+	</view>
+
+	<view class="cu-form-group">
+		<view class="title">审核结果通知模板</view>
+		<button class="cu-btn bg-green shadow" bindtap="sendSubscribeMsg1">发送</button>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">活动开始通知模板</view>
+		<button class="cu-btn bg-green shadow" bindtap="sendSubscribeMsg2">发送</button>
+	</view>
+
+</view>
+
+<view class="cu-list menu margin-top">
+
+	<view class="cu-item">
+		<view class="content">
+			<text class="cuIcon-circlefill text-grey"></text>
+			<text class="text-grey">参数二维码生成测试</text>
+		</view>
+		<view class="action">
+			<button class="cu-btn bg-green shadow" bindtap="createQRcode">生成</button>
+		</view>
+	</view>
+
+	<view class="cu-form-group flex flex-direction">
+		<image style="widht:50vw;" mode="widthFix" src="{{imgSrc==''?'/images/qrcode.png':imgSrc}}" bindtap="saveToAlbum"></image>
+	</view>
+
+</view>
+
+
+<!-- <button style="width:100%" class="cu-btn bg-green shadow margin-top" bindtap="tmpTestFun">Test</button> -->
+
+<cu-scroll cusBGC="red" styleType="width:100vw;height:30vh" refreshState="{{refreshState}}" bindrefreshEvent="freshEvent" naviId="{{naviId}}">
+	<view style="height:30vh" class="padding-xl bg-blue" id='t665'>外部1</view>
+	<view style="height:30vh" class="padding-xl bg-red" id='t666'>外部2</view>
+	<view style="height:30vh" class="padding-xl bg-green" id='t667'>外部3</view>
+	<view style="height:30vh" class="padding-xl bg-yellow" id='t668'>外部4</view>
+	<view style="height:30vh" class="padding-xl bg-grey" id='t669'>外部5</view>
+	<view class="padding-xl bg-green">下拉试试~</view>
+</cu-scroll>

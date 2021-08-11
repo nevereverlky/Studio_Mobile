@@ -1,0 +1,55 @@
+<view class="cu-modal {{show?'show':''}}">
+	<view class="cu-dialog">
+		<view class="cu-bar bg-white justify-end">
+			<view class="content">选择组织</view>
+			<!-- <view class="action" bindtap="hideModal">
+				<text class="cuIcon-close text-red"></text>
+			</view> -->
+		</view>
+
+
+		<view class="cu-bar bg-white search">
+			<view class="search-form round">
+				<text class="cuIcon-search"></text>
+				<input type="text" placeholder="搜索组织" value="{{keyWord}}" bindinput="updateInput"></input>
+				<text wx:if="{{keyWord.length!=0}}" class="cuIcon-close" bindtap="clearKeyWord"></text>
+			</view>
+		</view>
+
+		<cu-scroll enableFresh="{{false}}" styleType="width:100%;height:50vh">
+
+			<block wx:if="{{!organizeList[0].name}}">
+
+				<view style="width:100%;height:100%" class="flex justify-center align-center text-center">
+					<view class="rotate text-xsl padding">
+						<text class="cuIcon-loading text-grey"></text>
+					</view>
+					<view class="padding text-gray">加载中..</view>
+				</view>
+
+			</block>
+			<block wx:else>
+				<view class="cu-list grid col-4">
+
+					<block wx:for="{{organizeList}}" wx:key="item" wx:if="{{organizeList[index].show}}">
+
+						<view class="cu-item justify-center" data-name="{{item.name}}" bindtap="select">
+							<view class="margin-sm">
+								{{item.name}}
+							</view>
+						</view>
+					</block>
+				</view>
+			</block>
+
+		</cu-scroll>
+
+		<!-- <view class="cu-bar bg-white justify-end">
+			<view class="action">
+				<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+				<button class="cu-btn bg-green margin-left" bindtap="hideModal">确定</button>
+			</view>
+		</view> -->
+
+	</view>
+</view>

@@ -1,0 +1,42 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{false}}">
+	<view slot="content">信工第二课堂</view>
+</cu-custom>
+
+<view style="height:90vh" class="flex flex-direction">
+	<!-- 背景图片 -->
+	<image style="width:100vw" mode="widthFix" src="/images/index.jpg"></image>
+	<!-- 主体 -->
+	<view wx:if="{{playAni}}" style="animation-delay: 0.1s;"
+		class="padding-xl flex-sub {{playAni?'animation-slide-bottom':''}}">
+
+		<!--图标-->
+		<view style="width:100%;height:auto;position:relative;top:-130rpx;" class="flex flex-direction align-center">
+			<image style="width:160rpx;height:160rpx;" class="cu-avatar radius" src="/images/logo.png">
+			</image>
+		</view>
+
+		<!-- 表单 -->
+		<form bindsubmit="login" class="flex flex-direction justify-between">
+
+			<view class="flex flex-direction justify-between">
+
+				<view class="cu-form-group">
+					<view class="title">账号</view>
+					<input name="username" placeholder="默认账号为学号" value="{{username}}"></input>
+				</view>
+
+				<view class="cu-form-group margin-top-xl">
+					<view class="title">密码</view>
+					<input name="password" type="password" placeholder="默认密码为Hziee+学号" value="{{password}}"></input>
+				</view>
+
+			</view>
+
+			<button style="width:100%;" class="cu-btn bg-green lg margin-top-xl" loading="{{isLoad}}" form-type="submit"
+				open-type="getUserInfo" bindgetuserinfo="getUserInfo">登陆{{testMode?'-测试模式':''}}</button>
+
+		</form>
+
+	</view>
+
+</view>

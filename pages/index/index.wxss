@@ -1,0 +1,119 @@
+@import "../../colorui/animation.wxss";
+
+.solid-for-this {
+  height: fit-content;
+  border: 2rpx solid rgba(0, 0, 0, 0.1);
+  box-shadow: gray 1rpx 1rpx;
+}
+
+.arrow-left::before {
+  top: 27rpx;
+  left: -12rpx;
+  right: initial;
+}
+
+.arrow-right::before {
+  top: 27rpx;
+  right: -12rpx;
+  left: initial;
+}
+
+.arrow-top::before {
+  top: -12rpx;
+  left: 50%;
+  transform: translateY(-50%);
+  bottom: initial;
+}
+
+
+
+.solid-for-this::before {
+  content: "";
+  transform: rotate(45deg);
+  position: absolute;
+  z-index: 100;
+  display: inline-block;
+  overflow: hidden;
+  width: 24rpx;
+  height: 24rpx;
+  /* left: -12rpx;
+  right: initial; */
+  background-color: inherit;
+}
+
+
+/* 内容 */
+.head-bg {
+  width: 100vw;
+  height: 500rpx;
+  background-color: #72C142;
+}
+
+/* 下拉菜单 */
+.item-first,
+.item-second,
+.item-third {
+  height: 0;
+  transition: height .4s;
+}
+
+/* 每个子菜单100rpx */
+/* height:auto,fit-content;动画失效 */
+.item-first-active {
+  height: 200rpx;
+  transition: height .4s ease-in-out;
+}
+
+.item-second-active {
+  height: 400rpx;
+  transition: height .4s ease-in-out;
+}
+
+.item-third-active {
+  height: 200rpx;
+  transition: height .4s ease-in-out;
+}
+
+/* 箭头动画 */
+.deg-down:before {
+  transform: rotate(90deg);
+  transition: all .4s;
+}
+
+.deg-right:before {
+  transform: rotate(0deg);
+  transition: all .4s;
+}
+
+/* 箭头 */
+.arrow-for-this:before {
+  display: block;
+  color: white;
+  content: "\e6a3";
+  text-align: center;
+  font-size: 34rpx;
+  font-family: "cuIcon";
+  line-height: 30rpx;
+}
+
+/* 用户详情 */
+.userInfo {
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: normal;
+  line-height: 60rpx;
+  border-left: 3rpx solid #fff;
+  padding-left: 40rpx;
+}
+
+/* 图标 */
+.cu-list.menu>.cu-item .content>image {
+  margin-right: 20rpx;
+  width: 34rpx;
+  height: 34rpx;
+}
+
+/* 纠正对齐 */
+.cu-list.menu>.cu-item .content {
+  line-height: unset;
+}

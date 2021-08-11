@@ -1,0 +1,30 @@
+.tag-for-this {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* width: 100%; */
+  padding: 0 10rpx;
+}
+
+.cu-tag-warp {
+  font-size: 24rpx;
+  vertical-align: middle;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 10rpx 16rpx;
+  height: unset;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
+  white-space: wrap;
+  /* border-radius: 0 12rpx 12rpx 12rpx; */
+  border: 1px solid var(--grey);
+}
+.cu-tag-warp:nth-child(1){
+  border-radius: 12rpx 0 0 12rpx;
+  max-width: 2em;
+}
+.cu-tag-warp:nth-child(2){
+  border-radius: 0 12rpx 12rpx 0;
+}

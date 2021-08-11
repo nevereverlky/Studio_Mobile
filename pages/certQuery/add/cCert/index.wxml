@@ -1,0 +1,204 @@
+<!--pages/setting/certificate/Ccertificate/create/index.wxml-->
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">证书录入</view>
+</cu-custom>
+
+<view class="bg-white padding">
+	<view class="cu-steps">
+
+		<block wx:for="{{stepList.names}}" wx:key="item">
+			<view class="cu-item {{index>stepList.current?'':'text-green'}}">
+				<text class="num" data-index="{{index + 1}}"></text> {{item}}
+			</view>
+		</block>
+
+	</view>
+</view>
+
+<swiper style="height:calc(100vh - 160rpx - 182rpx)" easing-function="easeInOutCubic" current="{{stepList.current}}"
+	bindanimationfinish="changeByHand">
+	<!-- 111基本信息 -->
+	<swiper-item>
+
+		<scroll-view scroll-y style="height:calc(100% - 160rpx)">
+
+
+			<view class="cu-bar bg-white solid-bottom">
+				<view class="action">
+					<text class="cuIcon-title text-red"></text>
+					<text>基本信息</text><text class="text-sm text-red">(必填)</text>
+				</view>
+			</view>
+
+			<view class="cu-form-group">
+				<view class="title">竞赛名称</view>
+				<input placeholder="请输入竞赛名称" bindinput="updateCertName"></input>
+			</view>
+
+
+			<view class="cu-form-group">
+				<view class="title">成绩等级</view>
+				<input placeholder="请输入成绩等级" bindinput="updateCertRank"></input>
+			</view>
+
+			<view class="cu-form-group">
+				<view class="title">发证时间</view>
+				<picker mode="date" fields='month' value="{{submitData.certificatePublishDate}}" bindchange="updateDate">
+					<view style="text-align:left;line-height:unset" class="picker text-green">{{submitData.certificatePublishDate}}</view>
+				</picker>
+			</view>
+
+
+			<!-- 证书类型 -->
+
+			<view class="cu-bar bg-white solid-bottom margin-top">
+				<view class="action">
+					<text class="cuIcon-title text-red"></text>
+					<text>证书类型</text><text class="text-sm text-red">(必选)</text>
+				</view>
+			</view>
+
+			<view class="cu-form-group">
+				<view class="title">证书类型</view>
+				<picker value="{{certType.current}}" range="{{certType.names}}" bindchange="typeChange">
+					<view style="text-align:left;line-height:unset" class="picker text-green">{{certType.names[certType.current]}}</view>
+				</picker>
+			</view>
+
+
+		</scroll-view>
+
+	</swiper-item>
+
+	<!-- 222证书上传 -->
+	<swiper-item>
+
+		<scroll-view scroll-y style="height:calc(100% - 160rpx)">
+
+			<view class="cu-bar bg-white">
+				<view class="action">
+					<text class="cuIcon-title text-red"></text>
+					<text>证书图片上传</text><text class="text-sm text-red">(必填)</text>
+				</view>
+			</view>
+
+			<view class="cu-form-group">
+				<view class="grid col-1 grid-square flex-sub">
+
+					<block wx:if="{{submitData.pictureUrl==null||submitData.pictureUrl==''}}">
+						<view class="solids" bindtap="chooseImage">
+							<text class="cuIcon-cameraadd"></text>
+						</view>
+					</block>
+
+					<block wx:else>
+						<view class="bg-img" bindtap="chooseImage">
+							<image src='{{submitData.pictureUrl}}' mode='aspectFit'></image>
+							<view class="cu-tag bg-red" catchtap="delImg">
+								<text class="cuIcon-close"></text>
+							</view>
+						</view>
+					</block>
+
+				</view>
+			</view>
+
+
+		</scroll-view>
+
+	</swiper-item>
+
+
+
+	<!-- 333证书信息 -- 根据第一步的证书类型改变 -->
+	<swiper-item>
+
+		<scroll-view scroll-y style="height:calc(100% - 160rpx)">
+
+			<block wx:if="{{certType.names[certType.current]=='团队竞赛'}}">
+				<view class="cu-bar bg-white">
+					<view class="action">
+						<text class="cuIcon-title text-red"></text>
+						<text>队伍信息</text><text class="text-sm text-red">(必填)</text><text class="text-sm">不包括自己</text>
+					</view>
+					<view class="action">
+						<!-- <text style="height:100%" class="margin-right-sm text-center text-grey">添加队员</text> -->
+						<text wx:if="{{submitData.workUserId.length<8+1}}" style="font-size:44rpx" class="cuIcon-roundadd text-green" bindtap="addTeamer"></text>
+						<text wx:if="{{submitData.workUserId.length>1+1}}" style="font-size:44rpx" class="cuIcon-roundclose text-red" bindtap="delTeamer"></text>
+					</view>
+				</view>
+
+				<view class="cu-form-group">
+					<view class="title">队伍/作品名称</view>
+					<input placeholder="请输入队伍/作品名称" bindinput="updateTeam"></input>
+				</view>
+
+				<block wx:for="{{submitData.workUserId}}" wx:key="item" wx:if="{{index!=0}}">
+					<view class="cu-form-group">
+						<view class="title">队员{{index}}</view>
+						<input placeholder="请输入队员{{index}}学号" data-index="{{index}}" bindinput="updateTeamMember" value="{{item}}"></input>
+					</view>
+				</block>
+
+			</block>
+
+			<view class="cu-bar bg-white margin-top">
+				<view class="action">
+					<text class="cuIcon-title text-yellow"></text>
+					<text>指导老师</text><text class="text-sm text-yellow">(选填)</text><text class="text-sm">请按照顺序依次填写</text>
+				</view>
+				<view class="action">
+					<!-- <text style="height:100%" class="margin-right-sm text-center text-grey">添加老师</text> -->
+					<text wx:if="{{submitData.teacher.length<=2}}" style="font-size:44rpx" class="cuIcon-roundadd text-green" bindtap="addTeacher"></text>
+					<text wx:if="{{submitData.teacher.length>=2}}" style="font-size:44rpx" class="cuIcon-roundclose text-red" bindtap="delTeacher"></text>
+				</view>
+			</view>
+
+			<block wx:for="{{submitData.teacher}}" wx:key="item">
+				<view class="cu-form-group">
+					<view class="title">老师{{index+1}}工号</view>
+					<input placeholder="请输入指导老师{{index+1}}工号" data-index="{{index}}" bindinput="updateTeacherId" value="{{item.teacherNumber}}"></input>
+				</view>
+
+				<view class="cu-form-group">
+					<view class="title">老师{{index+1}}姓名</view>
+					<input placeholder="请输入指导老师{{index+1}}姓名" data-index="{{index}}" bindinput="updateTeacherName" value="{{item.teacherName}}"></input>
+				</view>
+			</block>
+
+
+		</scroll-view>
+	</swiper-item>
+
+
+
+	<!-- 444补充信息 -->
+	<swiper-item>
+
+		<scroll-view scroll-y style="height:calc(100% - 160rpx)">
+
+			<view class="cu-bar bg-white">
+				<view class="action">
+					<text class="cuIcon-title text-yellow"></text>
+					<text>证书详情</text><text class="text-sm text-yellow">(选填)</text>
+				</view>
+				<view class="action">{{submitData.extInfo.description==""?'0':submitData.extInfo.description.length}}/200</view>
+			</view>
+
+			<view class="cu-form-group">
+				<textarea style="min-height:10rem" maxlength="200" bindinput="updateTextarea" placeholder="请输入证书上其他的所有信息"></textarea>
+			</view>
+
+		</scroll-view>
+
+	</swiper-item>
+
+
+</swiper>
+
+
+<view style="width:100%;position:fixed;bottom:0" class="bg-white padding-lg flex justify-between">
+	<button wx:if="{{stepList.current}}" class="cu-btn bg-grey lg btn-for-this" data-type="back" bindtap="changeStep">上一步</button>
+	<button class="cu-btn bg-green lg btn-for-this" data-type="next" bindtap="changeStep">{{stepList.current==3?'提交':'下一步'}}</button>
+</view>

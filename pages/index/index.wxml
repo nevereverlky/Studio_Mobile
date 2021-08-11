@@ -1,0 +1,276 @@
+<!-- 内容 -->
+<cu-scroll styleType="page" cusBGC="#72C142" refreshState="{{refreshState}}" bindrefreshEvent="freshEvent">
+
+	<!-- 新手引导 -->
+	<cu-guide></cu-guide>
+
+	<!-- 个人二维码 -->
+	<cu-qrcode wx:if="{{showQrcode}}" show="{{showQrcode}}"></cu-qrcode>
+
+	<view wx:if="{{testMode}}" style="position:fixed;top:6vh;z-index:9999;width:600rpx" class="flex flex-wrap">
+		<view class="cu-btn margin-xs bg-green round" data-target="/pages/testPage/index" bindtap="navi">测试页面</view>
+		<view class="cu-btn margin-xs bg-blue round" bindtap="testScanLanuch">模拟扫码</view>
+		<view class="cu-btn margin-xs bg-yellow round" bindtap="testAllRole">所有权限</view>
+		<view class="cu-btn margin-xs bg-red round" bindtap="testClearLogin">清除登陆</view>
+		<view class="cu-btn margin-xs bg-red round" bindtap="testGuide">新手指引</view>
+	</view>
+
+	<view class="head-bg flex flex-direction align-center justify-center">
+
+		<!-- 占位 -->
+		<view class="margin-top-xl"></view>
+		<view class="margin-top-xl"></view>
+		<view class="margin-top-xl"></view>
+
+		<view style="width:100%;height:100%;position:relative" class="padding-lg">
+
+			<!-- 概要部分 -->
+			<view
+				style="width:200rpx;position:absolute;left:50%;transition:left .4s;transform: translateX(-50%);{{showUserInfo?'left:25%':''}}"
+				class="flex flex-direction align-cneter">
+				<!-- 头像 -->
+				<view style="width:180rpx;position:relative" class="flex align-end">
+
+					<block wx:if="{{!userInfo.avatarUrl}}">
+						<image style="width:170rpx;height:170rpx;" class="cu-avatar round" src="/images/default-avatar.png"
+							bindtap="showUserInfo"></image>
+					</block>
+					<block wx:else>
+						<image style="width:170rpx;height:170rpx;" class="cu-avatar round" src="{{userInfo.avatarUrl}}"
+							bindtap="showUserInfo"></image>
+					</block>
+
+					<!-- 二维码 -->
+					<image id="qrcode" style="width:64rpx;height:64rpx;position:absolute;right:-10rpx" class="bg-white round"
+						src="/images/qrcode.png" bindtap="showQrcode"></image>
+				</view>
+				<!-- 头像下部分 -->
+				<view style="width:180rpx" class="margin-top-sm flex flex-direction align-center">
+					<!-- 用户信息 -->
+					<view id="userinfo" style="position:relative" class="flex align-center">
+						<text style="width:4em" class="text-xl text-white text-cut">{{userInfo.realName}}</text>
+						<view style="width:40rpx;position:absolute;right:-45rpx"
+							class="arrow-for-this {{showUserInfo?'deg-right':'deg-down'}}" bindtap="showUserInfo"></view>
+					</view>
+					<text
+						class="text-sm text-white">{{userInfo.grade==null?'':userInfo.grade}}{{userInfo.grade==null?'':'级'}}</text>
+				</view>
+			</view>
+			<!-- END概要部分 -->
+
+			<!-- 详情部分 -->
+			<view wx:if="{{showUserInfo}}" style="position:absolute;left:30%;margin-left:70rpx"
+				class="padding-lg radius flex flex-direction justify-start text-content {{showUserInfo?'animation-slide-right':''}}">
+				<view class="flex userInfo">
+					<text class="cuIcon-profile text-white margin-right-sm"> 学号</text>
+					<text class="flex-sub">{{userInfo.stuId}}</text>
+				</view>
+				<view class="flex userInfo">
+					<text class="cuIcon-tagfill text-white margin-right-sm"> 专业</text>
+					<text class="flex-sub">{{userInfo.major}}</text>
+				</view>
+				<view class="flex userInfo">
+					<text class="cuIcon-group text-white margin-right-sm"> 班级</text>
+					<text class="flex-sub">{{userInfo.classId}}</text>
+				</view>
+			</view>
+			<!-- END详情部分 -->
+		</view>
+
+	</view>
+
+	<!-- 数据部分 -->
+	<block wx:if="{{not_student}}">
+		<view style="box-shadow:unset" class="padding flex text-center text-grey bg-white shadow-warp">
+			<view class="flex flex-sub flex-direction solid-right" data-type="schoolActivity" bindtap="toDetail">
+				<view class="text-xxl text-blue">{{analysisData.stamp[0]==-1?'加载中':(analysisData.stamp[0])+' 枚'}}</view>
+				<view class="margin-top-sm">
+					<text class="cuIcon-attentionfill"></text>
+					校园活动章
+				</view>
+			</view>
+			<view id="detail" class="flex flex-sub flex-direction solid-right" data-type="lectureActivity" bindtap="toDetail">
+				<view class="text-xxl text-orange">{{analysisData.stamp[1]==-1?'加载中':(analysisData.stamp[1])+' 枚'}}</view>
+				<view class="margin-top-sm">
+					<text class="cuIcon-favorfill"></text>
+					讲座活动章
+				</view>
+			</view>
+			<view class="flex flex-sub flex-direction" data-type="practiceActivity" bindtap="toDetail">
+				<view class="text-xxl text-green">{{analysisData.stamp[2]==-1?'加载中':(analysisData.stamp[2])+' 次'}}</view>
+				<view class="margin-top-sm">
+					<text class="cuIcon-fork"></text>
+					社会实践
+				</view>
+			</view>
+		</view>
+	</block>
+	<!-- END数据部分 -->
+
+
+	<view class="cu-list menu card-menu margin-top-lg margin-bottom-sm shadow-lg radius">
+
+		<view wx:if="{{display_recorder}}" class="cu-item arrow">
+			<view class="content" data-target="/pages/activityScanner/index" bindtap="navi">
+				<image src="/images/jly.png" mode="aspectFit"></image>
+				<text class="text-grey">记录员</text>
+			</view>
+		</view>
+
+		<view wx:if="{{display_maker}}" class="cu-item arrow {{pushMenu[0]?'deg-down':'deg-right'}}" data-id="0"
+			bindtap="changeMenu">
+			<view class="content">
+				<image src="/images/hdxg.png" mode="aspectFit"></image>
+				<text class="text-grey">活动相关</text>
+			</view>
+			<text class="text-gray text-sm">新建/管理活动</text>
+		</view>
+
+		<!-- 新建活动 -->
+		<!-- 管理活动 -->
+		<view class="item-first{{pushMenu[0]?'-active':''}}">
+
+			<view style="margin:0;border-radius:0" class="cu-list menu card-menu shadow-lg">
+				<view class="cu-item arrow">
+					<view class="content" data-target="/pages/activityAdmin/add/index" bindtap="navi">
+						<text class="text-gray">新建活动</text>
+					</view>
+				</view>
+			</view>
+
+			<view style="margin:0;border-radius:0" class="cu-list menu card-menu shadow-lg">
+				<view class="cu-item arrow">
+					<view class="content" data-target="/pages/activityAdmin/manage/index" bindtap="navi">
+						<text class="text-gray">管理活动</text>
+					</view>
+				</view>
+			</view>
+
+		</view>
+
+		<view wx:if="{{display_certManager}}" class="cu-item arrow">
+			<view class="content" data-target="/pages/certManager/index" bindtap="navi">
+				<image src="/images/zssh.png" mode="aspectFit"></image>
+				<text class="text-grey">证书审核</text>
+			</view>
+		</view>
+
+		<view class="cu-item arrow">
+
+			<view class="content" data-target="/pages/activityQuery/index" bindtap="navi">
+				<image src="/images/hdcx.png" mode="aspectFit"></image>
+				<text class="text-grey">报名查询</text>
+			</view>
+			<view data-target="/pages/activityQuery/index" bindtap="navi">
+				<text wx:if="{{analysisData.entry==1}}"
+					class="text-green text-sm {{analysisData.loadEnd?'animation-slide-right':''}}">正在报名</text>
+				<text wx:if="{{analysisData.entry==0}}"
+					class="text-orange text-sm {{analysisData.loadEnd?'animation-slide-right':''}}">即将开始</text>
+			</view>
+		</view>
+
+	</view>
+
+
+	<view class="cu-list menu card-menu margin-top-sm margin-bottom-sm shadow-lg radius">
+
+		<view class="cu-item arrow {{pushMenu[1]?'deg-down':'deg-right'}}" data-id="1" bindtap="changeMenu">
+			<view class="content">
+				<image src="/images/rdkh.png" mode="aspectFit"></image>
+				<text class="text-grey">入党考核</text>
+			</view>
+		</view>
+		<!-- “新学期”系列活动 -->
+		<!-- 交换一小时 -->
+		<view class="item-first{{pushMenu[1]?'-active':''}}">
+
+			<view style="margin:0;border-radius:0" class="cu-list menu card-menu shadow-lg">
+				<view class="cu-item arrow" data-type="partyActivity" bindtap="toDetail">
+					<view class="content">
+						<text class="text-red">“新学期”系列活动</text>
+					</view>
+					<text class="text-green text-xs">初心剧场,早课查勤,不定期升旗</text>
+				</view>
+			</view>
+
+			<view style="margin:0;border-radius:0" class="cu-list menu card-menu shadow-lg">
+				<view class="cu-item arrow" data-type="partyTimeActivity" bindtap="toDetail">
+					<view class="content">
+						<text class="text-red">交换一小时</text>
+					</view>
+				</view>
+			</view>
+			<!-- <view style="width:100%;height:auto;border-bottom: 3rpx solid #ddd"></view> -->
+		</view>
+
+		<view wx:if="{{not_student}}" class="cu-item arrow" data-type="volunteerActivity" bindtap="toDetail">
+			<view class="content">
+				<image src="/images/zysc.png" mode="aspectFit"></image>
+				<text class="text-grey">志愿时长</text>
+			</view>
+			<text
+				class="text-green text-sm {{analysisData.loadEnd?'animation-slide-right':''}}">{{analysisData.stamp[3]==-1?'':'共'+(analysisData.stamp[3])+'小时'}}</text>
+		</view>
+
+		<view wx:if="{{not_student}}" class="cu-item arrow" data-type="volunteerWork" bindtap="toDetail">
+			<view class="content">
+				<image src="/images/ygsc.png" mode="aspectFit"></image>
+				<text class="text-grey">义工时长</text>
+			</view>
+			<text
+				class="text-green text-sm {{analysisData.loadEnd?'animation-slide-right':''}}">{{analysisData.stamp[4]==-1?'':'共'+(analysisData.stamp[4])+'小时'}}</text>
+		</view>
+
+	</view>
+
+	<view class="cu-list menu card-menu margin-top-sm margin-bottom-xl shadow-lg radius">
+
+		<view class="cu-item arrow" wx:if="{{not_student}}">
+			<view class="content" data-target="/pages/certQuery/index" bindtap="navi">
+				<image src="/images/wdzs.png" mode="aspectFit"></image>
+				<text class="text-grey">我的证书</text>
+			</view>
+			<view data-target="/pages/cert/index" bindtap="navi">
+				<text class="text-orange text-sm">查看/录入证书</text>
+			</view>
+		</view>
+
+		<view class="cu-item arrow {{pushMenu[2]?'deg-down':'deg-right'}}" data-id="2" bindtap="changeMenu">
+			<view class="content">
+				<image src="/images/zhgl.png" mode="aspectFit"></image>
+				<text class="text-grey">账户管理</text>
+			</view>
+		</view>
+
+		<!-- 修改密码 -->
+		<!-- 退出登录 -->
+		<view class="item-third{{pushMenu[2]?'-active':''}}">
+
+			<view style="margin:0;border-radius:0" class="cu-list menu card-menu shadow-lg">
+				<view class="cu-item arrow">
+					<view class="content" data-target="/pages/accountAuth/cgPwd/index" bindtap="navi">
+						<text class="text-grey">修改密码</text>
+					</view>
+				</view>
+			</view>
+
+			<view style="margin:0;border-radius:0" class="cu-list menu card-menu shadow-lg">
+				<view class="cu-item arrow">
+					<view class="content" bindtap="logOut">
+						<text class="text-grey">退出登录</text>
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<view class="cu-item arrow">
+			<view class="content" data-target="/pages/devLogs/index" bindtap="navi">
+				<image src="/images/gxls.png" mode="aspectFit"></image>
+				<text class="text-grey">更新历史</text>
+			</view>
+		</view>
+
+	</view>
+
+	<!-- <view style="height:1px" class="margin-top"></view> -->
+</cu-scroll>

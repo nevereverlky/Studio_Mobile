@@ -1,0 +1,9 @@
+<view class='box'>
+  <text wx:if="{{playAni}}" class="{{playAni?'animation-slide-bottom':''}}">第</text>
+  <text wx:if="{{playAni}}" class="{{playAni?'animation-slide-bottom':''}}">二</text>
+  <text wx:if="{{playAni}}" class="{{playAni?'animation-slide-bottom':''}}">课</text>
+  <text wx:if="{{playAni}}" class="{{playAni?'animation-slide-bottom':''}}">堂</text>
+  <text wx:if="{{playAni}}" class="{{playAni?'animation-slide-bottom':''}}">成</text>
+  <text wx:if="{{playAni}}" class="{{playAni?'animation-slide-bottom':''}}">绩</text>
+  <text wx:if="{{playAni}}" class="{{playAni?'animation-slide-bottom':''}}">单</text>
+</view>
